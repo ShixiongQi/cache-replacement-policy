@@ -47,13 +47,13 @@ def access_cache(address, replacement_policy):
                 # LRU is enabled
                 # Reorder the cache by recency
                 reorder_cache_by_recency(tag, pos + 1)
-            else if replacement_policy == "LFU":
+            elif replacement_policy == "LFU":
                 # LFU is enabled
                 # Update the frequency counter of the flow
                 cache[pos][1] = cache[pos][1] + 1
                 # Reorder the cache by frequency
                 reorder_cache_by_frequency()
-            else if replacement_policy == "LRFU": # TODO: develop LRFU policy
+            elif replacement_policy == "LRFU": # TODO: develop LRFU policy
                 # LRFU is enabled
                 # Updated the CRF value of the flow
                 cache[pos][2] = cache[pos][2] + 1
@@ -68,11 +68,11 @@ def access_cache(address, replacement_policy):
     # replace the flow with designated policy
     if replacement_policy == "LRU":
         reorder_cache_by_recency(tag, 1)
-    else if replacement_policy == "LFU":
+    elif replacement_policy == "LFU":
         cache[0] = tag # Replace the least frequently used flow
         cache[0][1] = 1 # Initialize the frequency counter
         reorder_cache_by_frequency()
-    else if replacement_policy == "LRFU":
+    elif replacement_policy == "LRFU":
         cache[0] = tag # Replace the least frequently used flow
         cache[0][2] = 1 # Initialize the frequency counter
         reorder_cache_by_frequency()
