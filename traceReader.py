@@ -26,8 +26,11 @@ def __setup(filepath, max_trace_size):
                 sport = data['TCP'].sport
                 dport = data['TCP'].dport
             else:
-                sport = data['UDP'].sport
-                dport = data['UDP'].dport
+                try:
+                    sport = data['UDP'].sport
+                    dport = data['UDP'].dport
+                except:
+                    print(repr(data))
             proto = data['IP'].proto
             t = (src_addr, dst_addr, sport, dport, proto) # IP 5Tuples
             hex_addr = hashing(t)
