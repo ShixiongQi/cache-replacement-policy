@@ -1,0 +1,9 @@
+[How to execute]
+
+python3 main.py <tracefile (address-xxx)> <flow cache size> <replacement policy>
+
+[The usage of traceReader.py]
+traceReader.py is used to parse the pcap file and convert the IP 5-tuples to hex value,
+which works as the key in the simulated flow cache
+
+traceReader.py <pcap file> <# of traces>
