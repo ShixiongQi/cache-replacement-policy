@@ -11,6 +11,7 @@ def hashing(address):
     t_as_string = str(address)
     hash_object = hashlib.sha256(str(t_as_string).encode('utf-8'))
     hex_value = hash_object.hexdigest()
+    print(hex_value)
     # decimal_value = int(hex_value, 16)
     # index = decimal_value % int(cache_size)
     return hex_value
@@ -33,12 +34,13 @@ def __setup(filepath, max_trace_size):
                 t = (src_addr, dst_addr, sport, dport, proto) # IP 5Tuples
                 hex_addr = hashing(t)
                 cacheList.append(hex_addr)
+                # print("{} {} {} {} {}".format(src_addr, dst_addr, sport, dport, proto))
             except:
-                print(repr(data))
+                # print(repr(data))
                 continue
 
 filename = str(sys.argv[1])
 max_trace_size = int(sys.argv[2])
 __setup(filename, max_trace_size)
 # print(cacheList)
-print(len(cacheList))
+# print(len(cacheList))
