@@ -92,21 +92,21 @@ def simulate(cache_size, accesses, replacement_policy):
 
 def __setup(filepath, max_trace_size):
     global cacheList
-    trace_cnt = 0
-    packets = rdpcap(filepath) # Read pcap file
+    packets = rdpcap(filepath, max_trace_size) # Read pcap file
     for data in packets:
-        if trace_cnt >= max_trace_size:
-            break
-        if 'TCP' in data:
+        if 'TCP' or 'UDP' in data:
             src_addr = data['IP'].src
             dst_addr = data['IP'].dst
-            sport = data['TCP'].sport
-            dport = data['TCP'].dport
+            if 'TCP' in data:
+                sport = data['TCP'].sport
+                dport = data['TCP'].dport
+            else:
+                sport = data['UDP'].sport
+                dport = data['UDP'].dport
             proto = data['IP'].proto
             t = (src_addr, dst_addr, sport, dport, proto) # IP 5Tuples
             hex_addr = hashing(t)
             cacheList.append(hex_addr)
-            trace_cnt = trace_cnt + 1
 
 if __name__ == "__main__":
     filename = str(sys.argv[1])

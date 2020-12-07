@@ -15,21 +15,26 @@ def hashing(address):
     # index = decimal_value % int(cache_size)
     return hex_value
 
-def __setup(filepath):
+def __setup(filepath, max_trace_size):
     global cacheList
-
-    packets = rdpcap(filepath) # Read pcap file
+    packets = rdpcap(filepath, max_trace_size) # Read pcap file
     for data in packets:
-        if 'TCP' in data:
+        if 'TCP' or 'UDP' in data:
             src_addr = data['IP'].src
             dst_addr = data['IP'].dst
-            sport = data['TCP'].sport
-            dport = data['TCP'].dport
+            if 'TCP' in data:
+                sport = data['TCP'].sport
+                dport = data['TCP'].dport
+            else:
+                sport = data['UDP'].sport
+                dport = data['UDP'].dport
             proto = data['IP'].proto
             t = (src_addr, dst_addr, sport, dport, proto) # IP 5Tuples
             hex_addr = hashing(t)
             cacheList.append(hex_addr)
 
 filename = str(sys.argv[1])
-__setup(filename)
+max_trace_size = int(sys.argv[2])
+__setup(filename, max_trace_size)
 print(cacheList)
+print(len(cacheList))
