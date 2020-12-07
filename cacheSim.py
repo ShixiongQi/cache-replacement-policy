@@ -106,6 +106,7 @@ def __setup(filepath, max_trace_size):
                     dport = data['UDP'].dport
                 except:
                     print(repr(data))
+                    continue
             proto = data['IP'].proto
             t = (src_addr, dst_addr, sport, dport, proto) # IP 5Tuples
             hex_addr = hashing(t)
