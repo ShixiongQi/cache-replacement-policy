@@ -5,12 +5,12 @@ from scapy.all import *
 from scapy.utils import PcapReader
 
 class cacheSim(object):
-    def __init__(self):
+    def __init__(self, factor_lambda = 1e-1):
         self.cache = [] # Flow Director
         self.cacheList = [] # The cache list
 
         # LRFU parameters
-        self.factor_lambda = 1
+        self.factor_lambda = factor_lambda
         self.base = 0.5 ** self.factor_lambda
         self.time = 0
 
